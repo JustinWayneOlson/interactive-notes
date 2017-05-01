@@ -5,6 +5,8 @@ module.exports = function(app, passport, fileHandler){
 
    app.post('/upload', fileHandler.upload);
 
+   app.get('/download', fileHandler.download);
+
    app.get('/profile', isLoggedIn, function(req, res){
       res.render('filebrowser.ejs', {
          user : req.user

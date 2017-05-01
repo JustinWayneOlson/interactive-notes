@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<title>Interactive Notes</title>
-		<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+      <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
 		<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
@@ -48,5 +48,26 @@
             </ul>
 			</div>
 		</nav>
+		<div class="container-fluid left-menu">
+			 <div class="row">
+				<div class="col-xs-12">
+				  <div class="panel panel-default well">
+					<h4> Select files to be uploaded </h4>
+					 <div class="panel-body">
+						<span class="glyphicon fa fa-cloud-upload" aria-hidden="true"></span>
+						<div class="progress">
+						  <div class="progress-bar" role="progressbar"></div>
+						</div>
+						<button class="btn btn-lg upload-btn" role='button' type="button">Upload File</button>
+					 </div>
+				  </div>
+				</div>
+			 </div>
+		  </div>
+
+		  <input id="upload-input" type="file" name="uploads[]" multiple="multiple"></br>
+       <script src="js/upload.js"></script>
+
+
 	</body>
 </html>

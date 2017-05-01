@@ -15,7 +15,7 @@ $(document).ready(function(){
 		 for (var i = 0; i < files.length; i++) {
 			var file = files[i];
 
-			uploadFile.append('uploads[]', file, file.name);
+			uploadFile.append('file', file, file.name);
 		 }
 		 $.ajax({
 			url: '/upload',

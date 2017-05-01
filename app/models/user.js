@@ -15,6 +15,12 @@ var userSchema = mongoose.Schema({
         google_id    : String,
         google_token: String
     },
+   files: [
+      {
+         id : String,
+         name: String
+      }
+   ]
 });
 
 userSchema.methods.generateHash = function(password) {

@@ -11,6 +11,8 @@
     "express": "^4.0.0",
     "express-session": "~1.0.0",
     "formidable": "^1.1.1",
+    "gridfs": "^1.0.0",
+    "gridfs-stream": "^1.1.1",
     "method-override": "~1.0.0",
     "mongoose": "~3.8.1",
     "morgan": "~1.0.0",

@@ -1,3 +1,7 @@
+.left-menu{
+   margin-left: 3%;
+}
+
 .well {
     overflow: hidden;
     background-image: -webkit-linear-gradient(top, #e8e8e8 0, #f5f5f5 100%);
