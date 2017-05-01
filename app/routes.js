@@ -1,10 +1,12 @@
-module.exports = function(app, passport){
+module.exports = function(app, passport, fileHandler){
    app.get('/', function(req, res){
       res.render('index.ejs');
    });
 
+   app.post('/upload', fileHandler.upload);
+
    app.get('/profile', isLoggedIn, function(req, res){
-      res.render('profile.ejs', {
+      res.render('filebrowser.ejs', {
          user : req.user
       });
    });
@@ -114,11 +116,6 @@ module.exports = function(app, passport){
             failureRedirect: '/'
          }
    ));
-
-
-
-
-
 
 
    function isLoggedIn(req, res, next){
