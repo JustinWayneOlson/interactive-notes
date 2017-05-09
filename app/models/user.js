@@ -17,8 +17,8 @@ var userSchema = mongoose.Schema({
     },
    files: [
       {
-         id : String,
-         name: String
+         file_id: mongoose.Schema.Types.ObjectId,
+         name: String,
       }
    ]
 });

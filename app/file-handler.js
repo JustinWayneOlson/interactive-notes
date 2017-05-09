@@ -8,42 +8,51 @@ var gridfs = require('gridfs')
 var util = require('util');
 var configDB = require('../config/database');
 var User = require('../app/models/user');
-var File = require('../app/models/file');
 
 module.exports = {
    'upload': function(req, res){
-         var form = new formidable.IncomingForm();
-			form.uploadDir = __dirname + "/uploads";
-         form.multiples = true;
-			form.keepExtensions = true;
-		 form.parse(req, function(err, fields, files) {
+      var form = new formidable.IncomingForm();
+      form.uploadDir = __dirname + "/uploads";
+      form.multiples = true;
+      form.keepExtensions = true;
+		form.parse(req, function(err, fields, files) {
 		  if (!err) {
 			 grid.mongo = mongoose.mongo;
-				 var conn = mongoose.createConnection(configDB.url);
-				 conn.once('open', function () {
-				 var gfs = grid(conn.db);
-				 var writestream = gfs.createWriteStream({
-					  filename: files.file.name
-				 });
-				 fs.createReadStream(files.file.path).pipe(writestream);
-             User.findByIdAndUpdate(req.user._id,
-                   {
-                      $push:{"files": {
-                             'id':writestream.id,
-                             'name': files.file.name
-                          }}
-                   },
-                   {
-                     safe: true,
-                     upsert: true,
-                   },
-                     function(err, model){
-                        console.log(err);
-                   }
-               );
+          var conn = mongoose.createConnection(configDB.url);
+          conn.once('open', function () {
+             var gfs = grid(conn.db);
+             console.log("file name");
+             console.log(files.file.name);
+             var writestream = gfs.createWriteStream({
+                 filename: files.file.name,
+                 mode: 'w',
+                 metadat: req.body
+             });
+             fs.createReadStream(files.file.path).pipe(writestream);
 
-			 });
-		  }
+             writestream.on('close', function(file){
+                 User.findById(req.user._id, function(err, user){
+                     user.files.push({
+                        "file_id": file._id,
+                        "name": files.file.name});
+                     user.save(function(err, updatedUser){
+                        return res.json(200, updatedUser)
+                     });
+                  });
+
+                fs.unlink(files.file.path, function(err){
+                   if(err)
+                   {
+                      console.log(err);
+                   }
+                   else{
+                      console.log("unlinked");
+                   }
+                });
+             });
+
+           });
+        }
 		});
 		form.on('end', function() {
 			 res.send('Completed ..... go and check fs.files & fs.chunks in  mongodb');
