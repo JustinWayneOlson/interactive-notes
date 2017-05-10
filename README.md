@@ -95,6 +95,7 @@ I started by following a [guide](https://scotch.io/tutorials/creating-a-single-p
 - [ ] PDF Editor (take notes on the pdf)
 
 ## File Structure
+For brevity I removed library files not authored by myself. See Installation for information about the config files.
 
 ```
 ├── README.md              //application documentation
