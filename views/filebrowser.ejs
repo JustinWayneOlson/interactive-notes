@@ -107,7 +107,7 @@
                      <tr>
                         <th><%= sorted_files[i].name%></th>
                         <th><%= sorted_files[i].upload_date%></th>
-                        <th><a class='btn btn-sm btn-outline-success' href='/viewer/<%= sorted_files[i].file_id %>'>Open</a></th>
+                        <th><a class='btn btn-sm btn-outline-success' href='/download/<%= sorted_files[i].file_id %>'>Download</a></th>
                         <th><button class='btn btn-sm btn-outline-danger delete-button' data-file-id='<%= sorted_files[i].file_id %>'>Delete</button></th>
                      </tr>
                      <% } %>
