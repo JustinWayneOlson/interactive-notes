@@ -5,6 +5,23 @@ $(document).ready(function(){
 		 $('.progress-bar').width('0%');
 	});
 
+   $('.delete-button').on('click', function(){
+      $.ajax({
+         url: '/delete/' + $(this).attr('data-file-id'),
+         type: 'GET',
+         success: function(data){
+            location.reload();
+         },
+         error: function(error){
+            console.log(error);
+         }
+      });
+   });
+
+   $('#upload-modal-button').on('click', function(){
+      $('#upload-modal').modal();
+   });
+
 	$('#upload-input').on('change', function(){
 
 	  var files = $(this).get(0).files;
@@ -24,8 +41,15 @@ $(document).ready(function(){
 			processData: false,
 			contentType: false,
 			success: function(data){
-				 console.log('upload successful!\n' + data);
+            location.reload();
 			},
+         error: function(error){
+            console.log(error);
+            if(error.responseJSON.error == "INVALID_FILETYPE")
+            {
+               alert("Currently only .pdf files are supported. Please upload a .pdf file instead");
+            }
+         },
 			xhr: function() {
 			  var xhr = new XMLHttpRequest();
 

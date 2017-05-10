@@ -68,20 +68,15 @@ module.exports = function(passport){
                   if(found_user)
                   {
                      global_found_user = found_user.account;
+                     //parse and restring to form a temporary deep copy
                      user.account = Object.assign(JSON.parse(JSON.stringify(user.account)), JSON.parse(JSON.stringify(global_found_user)));
-                     exports.delete_offer = function(req, res)
-                     {
-                        User.findOneAndRemove({'account.google_id': profile.id}, function(err){
-                           if(err)
-                           {
-                              res.send(err);
-                           }
-                           else
-                           {
-                              res.json({message: 'duplicate entry removed'});
-                           }
-                        });
-                     }
+                     user.files = user.files.concat(found_user.files);
+                     User.findOneAndRemove({'account.google_id': profile.id}, function(err){
+                        if(err)
+                        {
+                           console.log(err);
+                        }
+                     });
                   }
                   else
                   {
@@ -156,17 +151,12 @@ module.exports = function(passport){
                   if(found_user)
                   {
                      global_found_user = found_user.account;
-                     console.log('found twitter exists');
                      user.account = Object.assign(JSON.parse(JSON.stringify(user.account)), JSON.parse(JSON.stringify(global_found_user)));
-                     console.log('inside exports');
+                     user.files = user.files.concat(found_user.files);
                      User.findOneAndRemove({'account.twitter_id': profile.id}, function(err){
                         if(err)
                         {
                            console.log(err);
-                        }
-                        else
-                        {
-                           console.log('duplicate entry removed');
                         }
                      });
                   }
@@ -241,19 +231,13 @@ module.exports = function(passport){
                   {
                      global_found_user = found_user.account;
                      user.account = Object.assign(JSON.parse(JSON.stringify(user.account)), JSON.parse(JSON.stringify(global_found_user)));
-                     exports.delete_offer = function(req, res)
-                     {
-                        User.findOneAndRemove({'account.facebook_id': profile.id}, function(err){
-                           if(err)
-                           {
-                              res.send(err);
-                           }
-                           else
-                           {
-                              res.json({message: 'duplicate entry removed'});
-                           }
-                        });
-                     }
+                     user.files = user.files.concat(found_user.files);
+                     User.findOneAndRemove({'account.facebook_id': profile.id}, function(err){
+                        if(err)
+                        {
+                           console.log(err);
+                        }
+                     });
                   }
                   else
                   {
@@ -320,19 +304,13 @@ module.exports = function(passport){
                   {
                      global_found_user = email;
                      user.account = Object.assign(JSON.parse(JSON.stringify(user.account)), JSON.parse(JSON.stringify(global_found_user)));
-                     exports.delete_offer = function(req, res)
-                     {
-                        User.findOneAndRemove({'account.email': profile.email}, function(err){
-                           if(err)
-                           {
-                              res.send(err);
-                           }
-                           else
-                           {
-                              res.json({message: 'duplicate entry removed'});
-                           }
-                        });
-                     }
+                     user.files = user.files.concat(found_user.files);
+                     User.findOneAndRemove({'account.email': profile.email}, function(err){
+                        if(err)
+                        {
+                           console.log(err);
+                        }
+                     });
                   }
                   else
                   {

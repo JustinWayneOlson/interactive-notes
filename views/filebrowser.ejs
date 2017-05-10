@@ -48,9 +48,23 @@
             </ul>
 			</div>
 		</nav>
-		<div class="container-fluid left-menu">
-			 <div class="row">
-				<div class="col-xs-12">
+      <div class='container'>
+         <div class="well text-center">
+            <h1>File Browser</h1>
+            <p>Upload, View, or Manage Notes</p>
+            <button class='btn btn-primary' id='upload-modal-button' type='button'>Upload A New Note</button>
+         </div>
+      </div>
+		<div class="modal fade" id="upload-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		  <div class="modal-dialog" role="document">
+			 <div class="modal-content">
+				<div class="modal-header">
+				  <h3 class="modal-title">File Uploader</h3>
+				  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					 <span aria-hidden="true">&times;</span>
+				  </button>
+				</div>
+				<div class="modal-body">
 				  <div class="panel panel-default well">
 					<h4> Select files to be uploaded </h4>
 					 <div class="panel-body">
@@ -59,13 +73,50 @@
 						  <div class="progress-bar" role="progressbar"></div>
 						</div>
 						<button class="btn btn-lg upload-btn" role='button' type="button">Upload File</button>
+                  <input id="upload-input" type="file" name="uploads[]" multiple="multiple"></br>
 					 </div>
 				  </div>
 				</div>
+				<div class="modal-footer">
+				  <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+				</div>
 			 </div>
 		  </div>
+		</div>
 
-		<input id="upload-input" type="file" name="uploads[]" multiple="multiple"></br>
+		<div class="container-fluid">
+			<div class='jumbotron'>
+				<h3> Uploaded Files </h3>
+			   <div class="panel panel-default well">
+					<div class='table-responsive'>
+						<table class="table table-striped">
+                  <% console.log(user.files); %>
+						<% if(user.files.length == 0){ %>
+                     <p> Upload files above to see them appear here </p>
+                  <%} else { %>
+                     <thead>
+                        <tr>
+                           <th>File Name</th>
+                           <th>Uploaded Date</th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                           <% var sorted_files = user.files;%>
+                           <% sorted_files.sort(function(first, second){return first.upload_date.localeCompare(second.upload_date)});%>
+                           <% for(var i=0; i < sorted_files.length; i++){ %>
+                              <tr>
+                                 <th><%= sorted_files[i].name%></th>
+                                 <th><%= sorted_files[i].upload_date%></th>
+                                 <th><a class='btn btn-sm btn-outline-success' href='/download/<%= sorted_files[i].file_id %>'>Open</a></th>
+                                 <th><button class='btn btn-sm btn-outline-danger delete-button' data-file-id='<%= sorted_files[i].file_id %>'>Delete</button></th>
+                              </tr>
+                           <% } %>
+                     </tbody>
+                  <% } %>
+					</div>
+				</div>
+			 </div>
+		  </div>
       <script src="js/upload.js"></script>
 
 

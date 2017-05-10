@@ -3,9 +3,11 @@ module.exports = function(app, passport, fileHandler){
       res.render('index.ejs');
    });
 
-   app.post('/upload', fileHandler.upload);
+   app.post('/upload', isLoggedIn, fileHandler.upload);
 
-   app.get('/download', fileHandler.download);
+   app.get('/download/:id', isLoggedIn, fileHandler.download);
+
+   app.get('/delete/:id', isLoggedIn, fileHandler.delete_file);
 
    app.get('/profile', isLoggedIn, function(req, res){
       res.render('filebrowser.ejs', {

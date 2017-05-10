@@ -18,7 +18,8 @@ var userSchema = mongoose.Schema({
    files: [
       {
          file_id: mongoose.Schema.Types.ObjectId,
-         name: String,
+         upload_date: String,
+         name: String
       }
    ]
 });
