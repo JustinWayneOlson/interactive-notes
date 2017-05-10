@@ -1,0 +1,75 @@
+<!doctype html>
+<html>
+	<head>
+      <title>Interactive Notes</title>
+      <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+      <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+      <link href='https://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
+      <link href="../css/style.css" rel="stylesheet">
+   </head>
+   <body>
+      <nav class="navbar navbar-toggleable-md navbar-inverse bg-inverse mb-4">
+         <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+         <span class="navbar-toggler-icon"></span>
+         </button>
+         <a class="navbar-brand" href="#">Interactive Notes</a>
+         <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="nav navbar-nav mr-auto navbar-left">
+               <li class="nav-item">
+                  <a class="nav-link" href="/profile">File Browser</a>
+               </li>
+               <li class="nav-item active">
+                  <a class="nav-link" href="/viewer">Viewer<span class="sr-only">(current)</span></a>
+               </li>
+               <li class="nav-item">
+                  <a class="nav-link" href="/account">Account</a>
+               </li>
+            </ul>
+            <ul class='nav navbar-nav mr-atuo navbar-right'>
+               <li>
+                  <% var display_name; %>
+                  <% if (user.account.name) { %>  
+                  <% 	display_name = user.account.name %>
+                  <% }else if(user.account.email){ %>
+                  <% 	display_name = user.account.email %>
+                  <% }else if(user.account.twitter_username){ %>
+                  <% 	display_name = user.account.twitter_username %>
+                  <% }else{ %>
+                  <% 	display_name = "User" %>
+                  <% } %> 
+                  <span class="navbar-brand"><%= display_name %></span>
+               </li>
+               <li>
+                  <a class="btn btn-outline-success my-2 my-sm-0" href='/logout'>Logout</a>
+               </li>
+            </ul>
+         </div>
+      </nav>
+		<div class='container-fluid'>
+			<div class='row'>
+				<div class='col-md-6 well'>
+					<object data="/download/<%= file_id %>" type="application/pdf" height="100%" width="100%">
+						<p><b>Example fallback content</b>: This browser does not support PDFs. Please download the PDF to view it: <a href="/dowload/<%= file_id %>">Download PDF</a>.</p>
+					</object>
+				</div>
+				<div class='col-md-6 text-center well'>
+					<h4>HTML</h4>
+					<textarea></textarea>
+				</div>
+			</div>
+			<div class='row'>
+				<div class='col-md-6 text-center well'>
+					<h4>JS</h4>
+					<textarea></textarea>
+				</div>
+				<div class='col-md-6 text-center well'>
+					<h4>CSS</h4>
+					<textarea></textarea>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

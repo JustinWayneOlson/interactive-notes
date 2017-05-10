@@ -1,124 +1,122 @@
 <!doctype html>
 <html>
-	<head>
-		<title>Interactive Notes</title>
+   <head>
+      <title>Interactive Notes</title>
       <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
-		<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
-		<link href='https://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
-		<link href="css/style.css" rel="stylesheet">
-	</head>
-	<body>
-		<nav class="navbar navbar-toggleable-md navbar-inverse bg-inverse mb-4">
-			<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-				<span class="navbar-toggler-icon"></span>
-			</button>
-			<a class="navbar-brand" href="#">Interactive Notes</a>
-			<div class="collapse navbar-collapse" id="navbarCollapse">
-				<ul class="navbar-nav mr-auto">
-					<li class="nav-item active">
-						<a class="nav-link" href="/profile">File Browser<span class="sr-only">(current)</span></a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="/viewer">Viewer</a>
-					</li>
-					<li class="nav-item">
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+      <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+      <link href='https://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
+      <link href="css/style.css" rel="stylesheet">
+   </head>
+   <body>
+      <nav class="navbar navbar-toggleable-md navbar-inverse bg-inverse mb-4">
+         <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+         <span class="navbar-toggler-icon"></span>
+         </button>
+         <a class="navbar-brand" href="#">Interactive Notes</a>
+         <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="nav navbar-nav mr-auto navbar-left">
+               <li class="nav-item active">
+                  <a class="nav-link" href="/profile">File Browser<span class="sr-only">(current)</span></a>
+               </li>
+               <li class="nav-item">
+                  <a class="nav-link" href="/viewer">Viewer</a>
+               </li>
+               <li class="nav-item">
                   <a class="nav-link" href="/account">Account</a>
-					</li>
-				</ul>
-            <ul class='navbar-nav mr-auto navbar-toggler-right'>
+               </li>
+            </ul>
+            <ul class='nav navbar-nav mr-atuo navbar-right'>
                <li>
-                  <span class="navbar-brand">
-                     <% if (user.account.name) { %>  
-                           <%= user.account.name %>
-                     <% }else if(user.account.email){ %>
-                           <%= user.account.email %>
-                     <% }else if(user.account.twitter_username){ %>
-                           <%= user.account.twitter_username %>
-                     <% }else{ %>
-                           User
-                     <% } %>
-                  </span>
+                  <% var display_name; %>
+                  <% if (user.account.name) { %>  
+                  <% 	display_name = user.account.name %>
+                  <% }else if(user.account.email){ %>
+                  <% 	display_name = user.account.email %>
+                  <% }else if(user.account.twitter_username){ %>
+                  <% 	display_name = user.account.twitter_username %>
+                  <% }else{ %>
+                  <% 	display_name = "User" %>
+                  <% } %> 
+                  <span class="navbar-brand"><%= display_name %></span>
                </li>
                <li>
                   <a class="btn btn-outline-success my-2 my-sm-0" href='/logout'>Logout</a>
                </li>
             </ul>
-			</div>
-		</nav>
+         </div>
+      </nav>
       <div class='container'>
          <div class="well text-center">
             <h1>File Browser</h1>
             <p>Upload, View, or Manage Notes</p>
             <button class='btn btn-primary' id='upload-modal-button' type='button'>Upload A New Note</button>
+            <p>(Currently only supports .pdf imports)</p>
          </div>
       </div>
-		<div class="modal fade" id="upload-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-		  <div class="modal-dialog" role="document">
-			 <div class="modal-content">
-				<div class="modal-header">
-				  <h3 class="modal-title">File Uploader</h3>
-				  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					 <span aria-hidden="true">&times;</span>
-				  </button>
-				</div>
-				<div class="modal-body">
-				  <div class="panel panel-default well">
-					<h4> Select files to be uploaded </h4>
-					 <div class="panel-body">
-						<span class="glyphicon fa fa-cloud-upload" aria-hidden="true"></span>
-						<div class="progress">
-						  <div class="progress-bar" role="progressbar"></div>
-						</div>
-						<button class="btn btn-lg upload-btn" role='button' type="button">Upload File</button>
-                  <input id="upload-input" type="file" name="uploads[]" multiple="multiple"></br>
-					 </div>
-				  </div>
-				</div>
-				<div class="modal-footer">
-				  <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-				</div>
-			 </div>
-		  </div>
-		</div>
-
-		<div class="container-fluid">
-			<div class='jumbotron'>
-				<h3> Uploaded Files </h3>
-			   <div class="panel panel-default well">
-					<div class='table-responsive'>
-						<table class="table table-striped">
+      <div class="modal fade" id="upload-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+         <div class="modal-dialog" role="document">
+            <div class="modal-content">
+               <div class="modal-header">
+                  <h3 class="modal-title">File Uploader</h3>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                  </button>
+               </div>
+               <div class="modal-body">
+                  <div class="panel panel-default well">
+                     <h4> Select files to be uploaded </h4>
+                     <div class="panel-body">
+                        <span class="glyphicon fa fa-cloud-upload" aria-hidden="true"></span>
+                        <div class="progress">
+                           <div class="progress-bar" role="progressbar"></div>
+                        </div>
+                        <button class="btn btn-lg upload-btn" role='button' type="button">Upload File</button>
+                        <input id="upload-input" type="file" name="uploads[]" multiple="multiple"></br>
+                     </div>
+                  </div>
+               </div>
+               <div class="modal-footer">
+                  <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="container-fluid">
+         <div class='jumbotron'>
+            <h3> Uploaded Files </h3>
+            <div class="panel panel-default well">
+               <div class='table-responsive'>
+                  <table class="table table-striped">
                   <% console.log(user.files); %>
-						<% if(user.files.length == 0){ %>
-                     <p> Upload files above to see them appear here </p>
+                  <% if(user.files.length == 0){ %>
+                  <p> Upload files above to see them appear here </p>
                   <%} else { %>
-                     <thead>
-                        <tr>
-                           <th>File Name</th>
-                           <th>Uploaded Date</th>
-                        </tr>
-                     </thead>
-                     <tbody>
-                           <% var sorted_files = user.files;%>
-                           <% sorted_files.sort(function(first, second){return first.upload_date.localeCompare(second.upload_date)});%>
-                           <% for(var i=0; i < sorted_files.length; i++){ %>
-                              <tr>
-                                 <th><%= sorted_files[i].name%></th>
-                                 <th><%= sorted_files[i].upload_date%></th>
-                                 <th><a class='btn btn-sm btn-outline-success' href='/download/<%= sorted_files[i].file_id %>'>Open</a></th>
-                                 <th><button class='btn btn-sm btn-outline-danger delete-button' data-file-id='<%= sorted_files[i].file_id %>'>Delete</button></th>
-                              </tr>
-                           <% } %>
-                     </tbody>
+                  <thead>
+                     <tr>
+                        <th>File Name</th>
+                        <th>Uploaded Date</th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     <% var sorted_files = user.files;%>
+                     <% sorted_files.sort(function(first, second){return first.upload_date.localeCompare(second.upload_date)});%>
+                     <% for(var i=0; i < sorted_files.length; i++){ %>
+                     <tr>
+                        <th><%= sorted_files[i].name%></th>
+                        <th><%= sorted_files[i].upload_date%></th>
+                        <th><a class='btn btn-sm btn-outline-success' href='/viewer/<%= sorted_files[i].file_id %>'>Open</a></th>
+                        <th><button class='btn btn-sm btn-outline-danger delete-button' data-file-id='<%= sorted_files[i].file_id %>'>Delete</button></th>
+                     </tr>
+                     <% } %>
+                  </tbody>
                   <% } %>
-					</div>
-				</div>
-			 </div>
-		  </div>
+               </div>
+            </div>
+         </div>
+      </div>
       <script src="js/upload.js"></script>
-
-
-	</body>
+   </body>
 </html>

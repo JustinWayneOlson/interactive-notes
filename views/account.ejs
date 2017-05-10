@@ -1,25 +1,25 @@
 <!doctype html>
 <html>
-	<head>
-		<title>Node Authentication</title>
-		<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
-		<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">  
-		<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+   <head>
+      <title>Account</title>
+      <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+      <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+      <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
       <link href="css/style.css" rel="stylesheet">
-	</head>
-	<body>
+   </head>
+   <body>
       <nav class="navbar navbar-toggleable-md navbar-inverse bg-inverse mb-4">
          <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
          <span class="navbar-toggler-icon"></span>
          </button>
          <a class="navbar-brand" href="#">Interactive Notes</a>
          <div class="collapse navbar-collapse" id="navbarCollapse">
-            <ul class="navbar-nav mr-auto">
+            <ul class="nav navbar-nav mr-auto navbar-left">
                <li class="nav-item">
-                  <a class="nav-link" href='/profile'>File Browser</a>
+                  <a class="nav-link" href="/profile">File Browser</a>
                </li>
                <li class="nav-item">
                   <a class="nav-link" href="/viewer">Viewer</a>
@@ -28,19 +28,19 @@
                   <a class="nav-link" href="/account">Account<span class="sr-only">(current)</span></a>
                </li>
             </ul>
-            <ul class='navbar-nav mr-auto navbar-toggler-right'>
+            <ul class='nav navbar-nav mr-atuo navbar-right'>
                <li>
-                  <span class="navbar-brand">
-                     <% if (user.account.name) { %>  
-                           <%= user.account.name %>
-                     <% }else if(user.account.email){ %>
-                           <%= user.account.email %>
-                     <% }else if(user.account.twitter_username){ %>
-                           <%= user.account.twitter_username %>
-                     <% }else{ %>
-                           User
-                     <% } %>
-                  </span>
+                  <% var display_name; %>
+                  <% if (user.account.name) { %>  
+                  <% 	display_name = user.account.name %>
+                  <% }else if(user.account.email){ %>
+                  <% 	display_name = user.account.email %>
+                  <% }else if(user.account.twitter_username){ %>
+                  <% 	display_name = user.account.twitter_username %>
+                  <% }else{ %>
+                  <% 	display_name = "User" %>
+                  <% } %> 
+                  <span class="navbar-brand"><%= display_name %></span>
                </li>
                <li>
                   <a class="btn btn-outline-success my-2 my-sm-0" href='/logout'>Logout</a>
@@ -48,98 +48,81 @@
             </ul>
          </div>
       </nav>
-		<div class="container-fluid">
-			 <div class="page-header text-center">
+      <div class="container-fluid">
+         <div class="page-header text-center">
+            <h1><span class="fa fa-anchor"></span> Profile Page</h1>
+         </div>
+         <div class='row'>
+
+            <div class="col-sm-3">
+               <div class="well text-justify">
+                  <h3><span class="fa fa-user"></span> Local</h3>
+                  <% if (user.account.password) { %>
+                  <p>
+                     <strong>id</strong>: <%= user._id %><br>
+                     <strong>email</strong>: <%= user.account.email %><br>
+                  </p>
+                  <a href="/unlink/local" class="btn btn-default">Unlink</a>
+                  <% } else { %>
+                  <a href="/connect/local" class="btn btn-default">Connect Local</a>
+                  <% } %>
+               </div>
+            </div>
+
+            <div class="col-sm-3">
+               <div class="well text-justify">
+                  <h3 class="text-primary"><span class="fa fa-facebook"></span> Facebook</h3>
+                  
+                  <% if (user.account.facebook_token) { %>
+                  <p>
+                     <strong>id</strong>: <%= user.account.facebook_id %><br>
+                     <strong>token</strong>: <%= user.account.facebook_token %><br>
+                     <strong>email</strong>: <%= user.account.email %><br>
+                     <strong>name</strong>: <%= user.account.name %><br>
+                  </p>
+                  <a href="/unlink/facebook" class="btn btn-primary">Unlink</a>
+                  <% } else { %>
+                  <a href="/connect/facebook" class="btn btn-primary">Connect Facebook</a>
+                  <% } %>
+               </div>
+            </div>
+
+            <div class="col-sm-3">
+               <div class="well text-justify">
+                  <h3 class="text-info"><span class="fa fa-twitter"></span> Twitter</h3>
+                 
+                  <% if (user.account.twitter_token) { %>
+                  <p>
+                     <strong>id</strong>: <%= user.account.twitter_id %><br>
+                     <strong>token</strong>: <%= user.account.twitter_token %><br>
+                     <strong>username</strong>: <%= user.account.twitter_username %>
+                  </p>
+                  <a href="/unlink/twitter" class="btn btn-info">Unlink</a>
+                  <% } else { %>
+                  <a href="/connect/twitter" class="btn btn-info">Connect Twitter</a>
+                  <% } %>
+               </div>
+            </div>
+
+            <div class="col-sm-3">
+               <div class="well text-justify">
+                  <h3 class="text-danger"><span class="fa fa-google-plus"></span> Google+</h3>
              
-				  <h1><span class="fa fa-anchor"></span> Profile Page</h1>
-			 </div>
-
-          <div class='row'>
-
-           <!-- LOCAL INFORMATION -->
-           <div class="col-sm-3">
-               <div class="well text-justify">
-                   <h3><span class="fa fa-user"></span> Local</h3>
-
-                   <% if (user.account.password) { %>
-                       <p>
-                           <strong>id</strong>: <%= user._id %><br>
-                           <strong>email</strong>: <%= user.account.email %><br>
-                       </p>
-                       
-                       <a href="/unlink/local" class="btn btn-default">Unlink</a>
-                   <% } else { %>
-                       <a href="/connect/local" class="btn btn-default">Connect Local</a>
-                   <% } %>
-
-               </div>
-           </div>
-
-           <!-- FACEBOOK INFORMATION -->
-           <div class="col-sm-3">
-               <div class="well text-justify">
-                   <h3 class="text-primary"><span class="fa fa-facebook"></span> Facebook</h3>
-
-                   <!-- check if the user has this token (is the user authenticated with this social account) -->
-                   <% if (user.account.facebook_token) { %>
-                       <p>
-                           <strong>id</strong>: <%= user.account.facebook_id %><br>
-                           <strong>token</strong>: <%= user.account.facebook_token %><br>
-                           <strong>email</strong>: <%= user.account.email %><br>
-                           <strong>name</strong>: <%= user.account.name %><br>
-                       </p>
-
-                       <a href="/unlink/facebook" class="btn btn-primary">Unlink</a>
-                   <% } else { %>
-                       <a href="/connect/facebook" class="btn btn-primary">Connect Facebook</a>
-                   <% } %>
-
-               </div>
-           </div>
-           <!-- TWITTER INFORMATION -->
-           <div class="col-sm-3">
-               <div class="well text-justify">
-                   <h3 class="text-info"><span class="fa fa-twitter"></span> Twitter</h3>
-
-                   <!-- check if the user has this token (is the user authenticated with this social account) -->
-                   <% if (user.account.twitter_token) { %>
-                       <p>
-                           <strong>id</strong>: <%= user.account.twitter_id %><br>
-                           <strong>token</strong>: <%= user.account.twitter_token %><br>
-                           <strong>username</strong>: <%= user.account.twitter_username %>
-                       </p>
-
-                       <a href="/unlink/twitter" class="btn btn-info">Unlink</a>
-                   <% } else { %>
-                       <a href="/connect/twitter" class="btn btn-info">Connect Twitter</a>
-                   <% } %>
-
-               </div>
-           </div>
-
-           <!-- GOOGLE INFORMATION -->
-           <div class="col-sm-3">
-               <div class="well text-justify">
-                   <h3 class="text-danger"><span class="fa fa-google-plus"></span> Google+</h3>
-
-                   <!-- check if the user has this token (is the user authenticated with this social account) -->
-                   <% if (user.account.google_token) { %>
-                       <p>
-                           <strong>id</strong>: <%= user.account.google_id %><br>
-                           <strong>token</strong>: <%= user.account.google_token %><br>
-                           <strong>email</strong>: <%= user.account.email %><br>
-                           <strong>name</strong>: <%= user.account.name %>
-                       </p>
-
-                       <a href="/unlink/google" class="btn btn-danger">Unlink</a>
-                   <% } else { %>
-                       <a href="/connect/google" class="btn btn-danger">Connect Google</a>
-                   <% } %>
-
+                  <% if (user.account.google_token) { %>
+                  <p>
+                     <strong>id</strong>: <%= user.account.google_id %><br>
+                     <strong>token</strong>: <%= user.account.google_token %><br>
+                     <strong>email</strong>: <%= user.account.email %><br>
+                     <strong>name</strong>: <%= user.account.name %>
+                  </p>
+                  <a href="/unlink/google" class="btn btn-danger">Unlink</a>
+                  <% } else { %>
+                  <a href="/connect/google" class="btn btn-danger">Connect Google</a>
+                  <% } %>
                </div>
             </div>
          </div>
-		</div>
+      </div>
       <script src='js/account.js'></script>
-	</body>
+   </body>
 </html>

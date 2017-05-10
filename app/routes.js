@@ -5,9 +5,22 @@ module.exports = function(app, passport, fileHandler){
 
    app.post('/upload', isLoggedIn, fileHandler.upload);
 
-   app.get('/download/:id', isLoggedIn, fileHandler.download);
+   app.get('/download/:id', fileHandler.download);
 
    app.get('/delete/:id', isLoggedIn, fileHandler.delete_file);
+
+   app.get('/viewer', isLoggedIn, function(req, res){
+      res.render('filebrowser.ejs', {
+         user: req.user
+      });
+   });
+
+   app.get('/viewer/:id', isLoggedIn, function(req, res){
+      res.render('viewer.ejs', {
+         user: req.user,
+         file_id: req.params.id
+      });
+   });
 
    app.get('/profile', isLoggedIn, function(req, res){
       res.render('filebrowser.ejs', {
