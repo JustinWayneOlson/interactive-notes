@@ -4,11 +4,10 @@
 - [Purpose](#purpose)
 - [Design](#design)
 - [Inspiration and References](#inspiration-and-references)
-- [Status](#status)
+- [Development Status](#development-status)
 - [File Structure](#file-structure)
 - [Dependencies](#dependencies)
-- [Installation](#installation)
-- [Usage](#usage)
+- [Installation and Usage](#installation-and-usage)
 
 ## Purpose
 
