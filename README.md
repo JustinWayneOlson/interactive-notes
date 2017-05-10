@@ -205,6 +205,12 @@ The second file is the MongoDB config. This just contains the connection string 
 
     sudo mongod &
 
+##### Open Mongoi shell, and create an index for gridfs
+
+    mongo
+
+    <mongoshell> db.fs.chunks.ensureIndex({ files_id : 1, n : 1 })
+
 ##### Start the web server
 
     node server.js
